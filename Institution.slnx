@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Institution.Application/Institution.Application.csproj" />
+  <Project Path="Institution.Domain/Institution.Domain.csproj" />
+  <Project Path="Institution.Infrastructure/Institution.Infrastructure.csproj" />
+  <Project Path="Institution.Tests/Institution.Tests.csproj" />
+  <Project Path="Institution/Institution.csproj" />
+</Solution>

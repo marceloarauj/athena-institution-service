@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Institution.Domain\Institution.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AthenaUnionLibrary">
+      <HintPath>..\..\AthenaUnionLibrary\AthenaUnionLibrary\bin\Debug\net10.0\AthenaUnionLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Mediator">
+      <HintPath>..\..\AthenaUnionLibrary\Mediator\bin\Debug\net10.0\Mediator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
