@@ -8,12 +8,13 @@ namespace Institution.Application.Handlers
 {
     public class ListEventsHandler
     (
-        IUnitOfWork unitOfWork
+        IUnitOfWork unitOfWork,
+        IInstitutionContext institutionContext
     ) : IMessageHandler<ListEventsCommand, AthenaApiResponse<List<EventResponseDto>>>
     {
         public async Task<AthenaApiResponse<List<EventResponseDto>>> Handle(ListEventsCommand request, CancellationToken cancellationToken)
         {
-            var institution = await unitOfWork.InstitutionRepository.FindByAliasAsync(request.InstitutionAlias);
+            var institution = await unitOfWork.InstitutionRepository.FindByAliasAsync(institutionContext.Alias!);
 
             if (institution == null)
                 return AthenaApiResponse<List<EventResponseDto>>.NotFound("Institution not found.");

@@ -8,7 +8,8 @@ namespace Institution.Application.Handlers
 {
     public class CreateEventHandler
     (
-        IUnitOfWork unitOfWork
+        IUnitOfWork unitOfWork,
+        IInstitutionContext institutionContext
     ) : IMessageHandler<CreateEventCommand, AthenaApiResponse<CreateEventResponseDto>>
     {
         public async Task<AthenaApiResponse<CreateEventResponseDto>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
@@ -18,7 +19,7 @@ namespace Institution.Application.Handlers
             if (dto.EndDate <= dto.StartDate)
                 return AthenaApiResponse<CreateEventResponseDto>.UnprocessableEntity("End date must be after start date.");
 
-            var institution = await unitOfWork.InstitutionRepository.FindByAliasAsync(request.InstitutionAlias);
+            var institution = await unitOfWork.InstitutionRepository.FindByAliasAsync(institutionContext.Alias!);
 
             if (institution == null)
                 return AthenaApiResponse<CreateEventResponseDto>.NotFound("Institution not found.");

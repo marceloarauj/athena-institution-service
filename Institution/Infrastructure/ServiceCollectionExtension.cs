@@ -27,6 +27,7 @@ namespace Institution.Infrastructure
                 services.AddHttpContextAccessor();
 
                 services.AddScoped<InstitutionContext>();
+                services.AddScoped<IInstitutionContext>(sp => sp.GetRequiredService<InstitutionContext>());
 
                 services.Configure<AmazonS3Options>(configuration.GetSection("Aws"));
 

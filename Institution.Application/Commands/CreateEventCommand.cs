@@ -5,5 +5,5 @@ using Mediator.Mediator;
 
 namespace Institution.Application.Commands
 {
-    public record CreateEventCommand(CreateEventDto Dto, string InstitutionAlias) : IRequestMessage<AthenaApiResponse<CreateEventResponseDto>>;
+    public record CreateEventCommand(CreateEventDto Dto) : IRequestMessage<AthenaApiResponse<CreateEventResponseDto>>;
 }
