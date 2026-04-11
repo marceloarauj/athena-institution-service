@@ -5,5 +5,5 @@ using Mediator.Mediator;
 
 namespace Institution.Application.Commands
 {
-    public record CreateDisciplineCommand(CreateDisciplineDto Dto) : IRequestMessage<AthenaApiResponse<CreateDisciplineResponseDto>>;
+    public record UpdateDisciplineCommand(Guid Id, UpdateDisciplineDto Dto) : IRequestMessage<AthenaApiResponse<UpdateDisciplineResponseDto>>;
 }

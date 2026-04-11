@@ -8,12 +8,13 @@ namespace Institution.Application.Handlers
 {
     public class CreateDisciplineHandler
     (
-        IUnitOfWork unitOfWork
+        IUnitOfWork unitOfWork,
+        IInstitutionContext institutionContext
     ) : IMessageHandler<CreateDisciplineCommand, AthenaApiResponse<CreateDisciplineResponseDto>>
     {
         public async Task<AthenaApiResponse<CreateDisciplineResponseDto>> Handle(CreateDisciplineCommand request, CancellationToken cancellationToken)
         {
-            var institution = await unitOfWork.InstitutionRepository.FindByAliasAsync(request.InstitutionAlias);
+            var institution = await unitOfWork.InstitutionRepository.FindByAliasAsync(institutionContext.Alias!);
 
             if (institution == null)
                 return AthenaApiResponse<CreateDisciplineResponseDto>.NotFound("Institution not found.");

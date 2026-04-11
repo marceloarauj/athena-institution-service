@@ -28,5 +28,7 @@ namespace Institution.Domain.Entities
         [ForeignKey(nameof(Institution))]
         public required Guid InstitutionId { get; set; }
         public required InstitutionEntity Institution { get; set; }
+
+        public ICollection<DisciplineTopicEntity> Topics { get; set; } = [];
     }
 }
