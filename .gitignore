@@ -2,3 +2,6 @@
 .vscode
 *bin
 *obj
+.claude/
+appsettings*.json
+*.csproj.user
