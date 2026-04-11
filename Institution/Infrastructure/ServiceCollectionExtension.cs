@@ -39,6 +39,7 @@ namespace Institution.Infrastructure
                 services.AddScoped<IUnitOfWork, UnitOfWork>();
                 services.AddScoped<IInstitutionRepository, InstitutionRepository>();
                 services.AddScoped<IInstitutionUpdateHistoryRepository, InstitutionUpdateHistoryRepository>();
+                services.AddScoped<IEventRepository, EventRepository>();
 
                 return services;
             }
