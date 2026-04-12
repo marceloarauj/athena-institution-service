@@ -1,5 +1,5 @@
 using Institution.Infrastructure;
-using Microsoft.AspNetCore.Http.Features;
+using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +15,7 @@ builder.Services
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -22,6 +23,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options.Title = "Athena Union - Institution API";
+        options.Theme = ScalarTheme.Purple;
+    });
 }
 
 app.UseHttpsRedirection();

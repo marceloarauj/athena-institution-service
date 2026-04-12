@@ -11,7 +11,8 @@ namespace Institution.Infrastructure.Database
         IInstitutionUpdateHistoryRepository institutionUpdateHistoryRepository,
         IEventRepository eventRepository,
         IDisciplineRepository disciplineRepository,
-        IDisciplineUpdateHistoryRepository disciplineUpdateHistoryRepository
+        IDisciplineUpdateHistoryRepository disciplineUpdateHistoryRepository,
+        IClassroomRepository classroomRepository
     ) : IUnitOfWork
     {
         private readonly AppDbContext _context = context;
@@ -51,5 +52,6 @@ namespace Institution.Infrastructure.Database
         public IEventRepository EventRepository { get; } = eventRepository;
         public IDisciplineRepository DisciplineRepository { get; } = disciplineRepository;
         public IDisciplineUpdateHistoryRepository DisciplineUpdateHistoryRepository { get; } = disciplineUpdateHistoryRepository;
+        public IClassroomRepository ClassroomRepository { get; } = classroomRepository;
     }
 }

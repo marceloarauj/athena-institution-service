@@ -13,5 +13,6 @@ namespace Institution.Application.Interfaces
         IEventRepository EventRepository { get; }
         IDisciplineRepository DisciplineRepository { get; }
         IDisciplineUpdateHistoryRepository DisciplineUpdateHistoryRepository { get; }
+        IClassroomRepository ClassroomRepository { get; }
     }
 }

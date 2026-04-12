@@ -43,6 +43,7 @@ namespace Institution.Infrastructure
                 services.AddScoped<IEventRepository, EventRepository>();
                 services.AddScoped<IDisciplineRepository, DisciplineRepository>();
                 services.AddScoped<IDisciplineUpdateHistoryRepository, DisciplineUpdateHistoryRepository>();
+                services.AddScoped<IClassroomRepository, ClassroomRepository>();
 
                 return services;
             }

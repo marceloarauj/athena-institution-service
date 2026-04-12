@@ -1,18 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Institution.Domain.Entities
 {
     [Table("classroom", Schema = Schemes.CLASSROOM)]
-    [Index(nameof(ClassName), nameof(DisciplineId), IsUnique = true)]
     public class ClassroomEntity : BaseEntity
     {
         [Column("max_students")]
         public int? MaxStudents { get; set; }
-
-        [Column("class_name")]
-        public required Guid ClassName { get; set; }
 
         [Column("location"), MaxLength(300)]
         public required string Location { get; set; }
