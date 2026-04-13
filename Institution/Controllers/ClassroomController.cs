@@ -23,5 +23,19 @@ namespace Institution.Controllers
             var response = await mediator.Send(new ListClassroomsCommand(filter));
             return response.AsResult();
         }
+
+        [HttpPost("register-student")]
+        public async Task<IActionResult> RegisterStudent([FromBody] RegisterStudentDto dto)
+        {
+            var response = await mediator.Send(new RegisterStudentCommand(dto));
+            return response.AsResult();
+        }
+
+        [HttpPatch("inactivate-student")]
+        public async Task<IActionResult> InactivateStudent([FromBody] InactivateStudentDto dto)
+        {
+            var response = await mediator.Send(new InactivateStudentCommand(dto));
+            return response.AsResult();
+        }
     }
 }

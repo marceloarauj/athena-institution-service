@@ -12,6 +12,13 @@ namespace Institution.Infrastructure.Repositories
             await dbContext.AddAsync(classroom);
         }
 
+        public async Task<ClassroomEntity?> FindByIdAsync(Guid id)
+        {
+            return await dbContext.Classrooms
+                .Include(c => c.Discipline)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
         public async Task<List<ClassroomEntity>> GetByFilterAsync(Guid institutionId, Guid? disciplineId, Guid? teacherId, DateTime? startDate, DateTime? endDate)
         {
             return await dbContext.Classrooms

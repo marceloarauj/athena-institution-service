@@ -14,5 +14,6 @@ namespace Institution.Application.Interfaces
         IDisciplineRepository DisciplineRepository { get; }
         IDisciplineUpdateHistoryRepository DisciplineUpdateHistoryRepository { get; }
         IClassroomRepository ClassroomRepository { get; }
+        IStudentClassroomRegistrationRepository StudentClassroomRegistrationRepository { get; }
     }
 }
