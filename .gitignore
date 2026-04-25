@@ -5,3 +5,4 @@
 .claude/
 appsettings*.json
 *.csproj.user
+log.txt
