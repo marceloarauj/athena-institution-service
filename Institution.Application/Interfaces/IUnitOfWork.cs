@@ -16,6 +16,7 @@ namespace Institution.Application.Interfaces
         IClassroomRepository ClassroomRepository { get; }
         IStudentClassroomRegistrationRepository StudentClassroomRegistrationRepository { get; }
         IDayLessonRepository DayLessonRepository { get; }
+        IStudentDayLessonRepository StudentDayLessonRepository { get; }
         IDayLessonScheduleConfigRepository DayLessonScheduleConfigRepository { get; }
         IDayLessonScheduleConfigHistoryRepository DayLessonScheduleConfigHistoryRepository { get; }
     }

@@ -15,6 +15,7 @@ namespace Institution.Infrastructure.Database
         IClassroomRepository classroomRepository,
         IStudentClassroomRegistrationRepository studentClassroomRegistrationRepository,
         IDayLessonRepository dayLessonRepository,
+        IStudentDayLessonRepository studentDayLessonRepository,
         IDayLessonScheduleConfigRepository dayLessonScheduleConfigRepository,
         IDayLessonScheduleConfigHistoryRepository dayLessonScheduleConfigHistoryRepository
     ) : IUnitOfWork
@@ -59,6 +60,7 @@ namespace Institution.Infrastructure.Database
         public IClassroomRepository ClassroomRepository { get; } = classroomRepository;
         public IStudentClassroomRegistrationRepository StudentClassroomRegistrationRepository { get; } = studentClassroomRegistrationRepository;
         public IDayLessonRepository DayLessonRepository { get; } = dayLessonRepository;
+        public IStudentDayLessonRepository StudentDayLessonRepository { get; } = studentDayLessonRepository;
         public IDayLessonScheduleConfigRepository DayLessonScheduleConfigRepository { get; } = dayLessonScheduleConfigRepository;
         public IDayLessonScheduleConfigHistoryRepository DayLessonScheduleConfigHistoryRepository { get; } = dayLessonScheduleConfigHistoryRepository;
     }

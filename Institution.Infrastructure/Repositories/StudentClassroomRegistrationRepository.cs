@@ -23,5 +23,12 @@ namespace Institution.Infrastructure.Repositories
             return await dbContext.StudentClassroomRegistrations
                 .FirstOrDefaultAsync(registry => registry.StudentId == studentId && registry.ClassroomId == classroomId);
         }
+
+        public async Task<List<StudentClassroomRegistrationEntity>> GetActiveByStudentIdsAsync(List<Guid> studentIds, Guid classroomId)
+        {
+            return await dbContext.StudentClassroomRegistrations
+                .Where(registry => registry.ClassroomId == classroomId && registry.IsActive && studentIds.Contains(registry.StudentId))
+                .ToListAsync();
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace Institution.Application.Interfaces.Repositories
         Task AddAsync(StudentClassroomRegistrationEntity registration);
         Task<bool> ExistsAsync(Guid studentId, Guid classroomId);
         Task<StudentClassroomRegistrationEntity?> FindByStudentAndClassroomAsync(Guid studentId, Guid classroomId);
+        Task<List<StudentClassroomRegistrationEntity>> GetActiveByStudentIdsAsync(List<Guid> studentIds, Guid classroomId);
     }
 }

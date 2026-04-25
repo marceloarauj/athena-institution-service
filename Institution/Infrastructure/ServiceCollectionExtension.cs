@@ -46,6 +46,7 @@ namespace Institution.Infrastructure
                 services.AddScoped<IClassroomRepository, ClassroomRepository>();
                 services.AddScoped<IStudentClassroomRegistrationRepository, StudentClassroomRegistrationRepository>();
                 services.AddScoped<IDayLessonRepository, DayLessonRepository>();
+                services.AddScoped<IStudentDayLessonRepository, StudentDayLessonRepository>();
                 services.AddScoped<IDayLessonScheduleConfigRepository, DayLessonScheduleConfigRepository>();
                 services.AddScoped<IDayLessonScheduleConfigHistoryRepository, DayLessonScheduleConfigHistoryRepository>();
 

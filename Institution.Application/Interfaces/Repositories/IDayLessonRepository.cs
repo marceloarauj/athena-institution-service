@@ -5,5 +5,6 @@ namespace Institution.Application.Interfaces.Repositories
     public interface IDayLessonRepository
     {
         Task AddRangeAsync(List<DayLessonEntity> dayLessons);
+        Task<DayLessonEntity?> FindByIdAsync(Guid id);
     }
 }
