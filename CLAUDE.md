@@ -18,10 +18,10 @@ dotnet test
 dotnet test --filter "FullyQualifiedName~ClassName"
 
 # Add an EF Core migration
-dotnet ef migrations add <MigrationName> --project Institution.Infrastructure --startup-project Institution
+dotnet ef migrations add <MigrationName> --project Institution.Infrastructure --startup-project Institution.Infrastructure
 
 # Apply migrations
-dotnet ef database update --project Institution.Infrastructure --startup-project Institution
+dotnet ef database update --project Institution.Infrastructure --startup-project Institution.Infrastructure
 ```
 
 ## Local Infrastructure

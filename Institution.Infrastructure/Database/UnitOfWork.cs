@@ -13,7 +13,10 @@ namespace Institution.Infrastructure.Database
         IDisciplineRepository disciplineRepository,
         IDisciplineUpdateHistoryRepository disciplineUpdateHistoryRepository,
         IClassroomRepository classroomRepository,
-        IStudentClassroomRegistrationRepository studentClassroomRegistrationRepository
+        IStudentClassroomRegistrationRepository studentClassroomRegistrationRepository,
+        IDayLessonRepository dayLessonRepository,
+        IDayLessonScheduleConfigRepository dayLessonScheduleConfigRepository,
+        IDayLessonScheduleConfigHistoryRepository dayLessonScheduleConfigHistoryRepository
     ) : IUnitOfWork
     {
         private readonly AppDbContext _context = context;
@@ -55,5 +58,8 @@ namespace Institution.Infrastructure.Database
         public IDisciplineUpdateHistoryRepository DisciplineUpdateHistoryRepository { get; } = disciplineUpdateHistoryRepository;
         public IClassroomRepository ClassroomRepository { get; } = classroomRepository;
         public IStudentClassroomRegistrationRepository StudentClassroomRegistrationRepository { get; } = studentClassroomRegistrationRepository;
+        public IDayLessonRepository DayLessonRepository { get; } = dayLessonRepository;
+        public IDayLessonScheduleConfigRepository DayLessonScheduleConfigRepository { get; } = dayLessonScheduleConfigRepository;
+        public IDayLessonScheduleConfigHistoryRepository DayLessonScheduleConfigHistoryRepository { get; } = dayLessonScheduleConfigHistoryRepository;
     }
 }

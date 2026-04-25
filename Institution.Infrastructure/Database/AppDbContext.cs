@@ -18,6 +18,8 @@ namespace Institution.Infrastructure.Database
         public DbSet<StudentClassroomRegistrationEntity> StudentClassroomRegistrations { get; set; }
         public DbSet<StudentClassroomNoteEntity> StudentClassroomNotes { get; set; }
         public DbSet<StudentDayLesson> StudentDayLessons { get; set; }
+        public DbSet<DayLessonScheduleConfigEntity> DayLessonScheduleConfigs { get; set; }
+        public DbSet<DayLessonScheduleConfigHistoryEntity> DayLessonScheduleConfigHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

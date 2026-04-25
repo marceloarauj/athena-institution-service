@@ -15,5 +15,8 @@ namespace Institution.Application.Interfaces
         IDisciplineUpdateHistoryRepository DisciplineUpdateHistoryRepository { get; }
         IClassroomRepository ClassroomRepository { get; }
         IStudentClassroomRegistrationRepository StudentClassroomRegistrationRepository { get; }
+        IDayLessonRepository DayLessonRepository { get; }
+        IDayLessonScheduleConfigRepository DayLessonScheduleConfigRepository { get; }
+        IDayLessonScheduleConfigHistoryRepository DayLessonScheduleConfigHistoryRepository { get; }
     }
 }

@@ -10,6 +10,7 @@ namespace Institution.Application.Dtos.Input
         public required DateTime StartDate { get; set; }
         public required DateTime EndDate { get; set; }
         public int? MaxStudents { get; set; }
+        public bool GenerateDayLessons { get; set; } = false;
 
         public ClassroomEntity ToEntity(DisciplineEntity discipline, Guid createdByUserId)
         {

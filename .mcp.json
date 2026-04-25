@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "AthenaMcp": {
+      "type": "stdio",
+      "command": "D:\\Projetos\\AthenaStudentsUnionProject\\Mcp\\AthenaMcp\\bin\\Debug\\net10.0\\AthenaMcp.exe"
+    }
+  }
+}

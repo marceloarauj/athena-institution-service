@@ -25,7 +25,12 @@ namespace Institution.Domain.Entities
         public Guid TeacherId { get; set; }
 
         [Column("lesson_replacement_id")]
-        public Guid LessonReplacementId { get; set; }
+        public Guid? LessonReplacementId { get; set; }
+
+        [Column("classroom_id")]
+        [ForeignKey(nameof(Classroom))]
+        public Guid? ClassroomId { get; set; }
+        public ClassroomEntity? Classroom { get; set; }
 
         public List<DayLessonDisciplineTopic>? DayLessonDisciplineTopics { get; set; }
     }
