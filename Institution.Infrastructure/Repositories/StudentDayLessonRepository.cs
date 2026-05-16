@@ -14,6 +14,12 @@ namespace Institution.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<StudentDayLesson?> FindByDayLessonAndStudentAsync(Guid dayLessonId, Guid studentId)
+        {
+            return await dbContext.StudentDayLessons
+                .FirstOrDefaultAsync(studentDayLesson => studentDayLesson.DayLessonId == dayLessonId && studentDayLesson.StudentId == studentId);
+        }
+
         public async Task AddRangeAsync(List<StudentDayLesson> records)
         {
             await dbContext.StudentDayLessons.AddRangeAsync(records);

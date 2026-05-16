@@ -33,5 +33,6 @@ namespace Institution.Domain.Entities
         public ClassroomEntity? Classroom { get; set; }
 
         public List<DayLessonDisciplineTopic>? DayLessonDisciplineTopics { get; set; }
+        public List<StudentDayLesson>? StudentDayLessons { get; set; }
     }
 }
