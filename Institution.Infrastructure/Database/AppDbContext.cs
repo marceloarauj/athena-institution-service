@@ -22,6 +22,34 @@ namespace Institution.Infrastructure.Database
         public DbSet<DayLessonScheduleConfigEntity> DayLessonScheduleConfigs { get; set; }
         public DbSet<DayLessonScheduleConfigHistoryEntity> DayLessonScheduleConfigHistories { get; set; }
 
+        // Academic
+        public DbSet<AcademicProgramEntity> AcademicPrograms { get; set; }
+        public DbSet<SubjectEntity> Subjects { get; set; }
+        public DbSet<ProgramEditionEntity> ProgramEditions { get; set; }
+        public DbSet<CurriculumEntryEntity> CurriculumEntries { get; set; }
+        public DbSet<HolidayEntity> Holidays { get; set; }
+        public DbSet<RecessEntity> Recesses { get; set; }
+        public DbSet<ProgramPeriodEntity> ProgramPeriods { get; set; }
+        public DbSet<CalendarDayEntity> CalendarDays { get; set; }
+
+        // Scheduling
+        public DbSet<RoomEntity> Rooms { get; set; }
+        public DbSet<ShiftEntity> Shifts { get; set; }
+        public DbSet<ScheduleSlotEntity> ScheduleSlots { get; set; }
+        public DbSet<TeacherEntity> Teachers { get; set; }
+        public DbSet<TeacherSubjectEntity> TeacherSubjects { get; set; }
+        public DbSet<TeacherAvailabilityEntity> TeacherAvailabilities { get; set; }
+        public DbSet<ClassScheduleEntity> ClassSchedules { get; set; }
+        public DbSet<ScheduleGenerationLogEntity> ScheduleGenerationLogs { get; set; }
+
+        // Enrollment
+        public DbSet<EnrollmentEntity> Enrollments { get; set; }
+        public DbSet<ProgressRecordEntity> ProgressRecords { get; set; }
+        public DbSet<ClassGroupEntity> ClassGroups { get; set; }
+        public DbSet<ClassGroupStudentEntity> ClassGroupStudents { get; set; }
+        public DbSet<ConflictReportEntity> ConflictReports { get; set; }
+        public DbSet<ConflictItemEntity> ConflictItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

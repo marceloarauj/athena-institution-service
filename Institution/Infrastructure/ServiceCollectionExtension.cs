@@ -50,6 +50,22 @@ namespace Institution.Infrastructure
                 services.AddScoped<IDayLessonScheduleConfigRepository, DayLessonScheduleConfigRepository>();
                 services.AddScoped<IDayLessonScheduleConfigHistoryRepository, DayLessonScheduleConfigHistoryRepository>();
 
+                services.AddScoped<IAcademicProgramRepository, AcademicProgramRepository>();
+                services.AddScoped<ISubjectRepository, SubjectRepository>();
+                services.AddScoped<IRoomRepository, RoomRepository>();
+                services.AddScoped<IShiftRepository, ShiftRepository>();
+                services.AddScoped<ITeacherRepository, TeacherRepository>();
+                services.AddScoped<IProgramEditionRepository, ProgramEditionRepository>();
+                services.AddScoped<ICurriculumEntryRepository, CurriculumEntryRepository>();
+                services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+                services.AddScoped<IHolidayRepository, HolidayRepository>();
+                services.AddScoped<IProgramPeriodRepository, ProgramPeriodRepository>();
+                services.AddScoped<ICalendarDayRepository, CalendarDayRepository>();
+                services.AddScoped<IProgressRecordRepository, ProgressRecordRepository>();
+                services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
+                services.AddScoped<IClassScheduleRepository, ClassScheduleRepository>();
+                services.AddScoped<IConflictReportRepository, ConflictReportRepository>();
+
                 return services;
             }
 

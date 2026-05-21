@@ -17,10 +17,237 @@ namespace Institution.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.5")
+                .HasAnnotation("ProductVersion", "10.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Institution.Domain.Entities.AcademicProgramEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("DurationYears")
+                        .HasColumnType("integer")
+                        .HasColumnName("duration_years");
+
+                    b.Property<bool>("HasWeeklySchedule")
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_weekly_schedule");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("institution_id");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<decimal?>("MinCompletionPercent")
+                        .HasColumnType("numeric")
+                        .HasColumnName("min_completion_percent");
+
+                    b.Property<int?>("MinSchoolDays")
+                        .HasColumnType("integer")
+                        .HasColumnName("min_school_days");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("PeriodType")
+                        .HasColumnType("integer")
+                        .HasColumnName("period_type");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("academic_program", "academic");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.CalendarDayEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date")
+                        .HasColumnName("date");
+
+                    b.Property<string>("HolidayName")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("holiday_name");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<Guid?>("ProgramPeriodId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_period_id");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.HasIndex("ProgramPeriodId");
+
+                    b.ToTable("calendar_day", "academic");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassGroupEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int?>("GradeOrYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("grade_or_year");
+
+                    b.Property<int>("MaxStudents")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_students");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<Guid?>("RoomId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("room_id");
+
+                    b.Property<Guid?>("ShiftId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("shift_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("class_group", "enrollment");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassGroupStudentEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("assigned_at");
+
+                    b.Property<Guid>("ClassGroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("class_group_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("EnrollmentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("enrollment_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassGroupId");
+
+                    b.HasIndex("EnrollmentId");
+
+                    b.ToTable("class_group_student", "enrollment");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassScheduleEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("ClassGroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("class_group_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer")
+                        .HasColumnName("day_of_week");
+
+                    b.Property<Guid?>("ProgramPeriodId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_period_id");
+
+                    b.Property<Guid>("ScheduleSlotId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("schedule_slot_id");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("subject_id");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("teacher_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassGroupId");
+
+                    b.HasIndex("ProgramPeriodId");
+
+                    b.HasIndex("ScheduleSlotId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("class_schedule", "scheduling");
+                });
 
             modelBuilder.Entity("Institution.Domain.Entities.ClassroomEntity", b =>
                 {
@@ -68,6 +295,146 @@ namespace Institution.Infrastructure.Migrations
                     b.HasIndex("DisciplineId");
 
                     b.ToTable("classroom", "classroom");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ConflictItemEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid?>("ClassGroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("class_group_id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("ConflictReportId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("conflict_report_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int?>("DayOfWeek")
+                        .HasColumnType("integer")
+                        .HasColumnName("day_of_week");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("description");
+
+                    b.Property<Guid?>("ScheduleSlotId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("schedule_slot_id");
+
+                    b.Property<int>("Severity")
+                        .HasColumnType("integer")
+                        .HasColumnName("severity");
+
+                    b.Property<Guid?>("SubjectId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("subject_id");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("teacher_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConflictReportId");
+
+                    b.ToTable("conflict_item", "enrollment");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ConflictReportEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("GeneratedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("generated_at");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<int>("TotalCritical")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_critical");
+
+                    b.Property<int>("TotalHigh")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_high");
+
+                    b.Property<int>("TotalMedium")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_medium");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.ToTable("conflict_report", "enrollment");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.CurriculumEntryEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int?>("GradeOrYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("grade_or_year");
+
+                    b.Property<int?>("PeriodNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("period_number");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("subject_id");
+
+                    b.Property<int?>("TotalHours")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_hours");
+
+                    b.Property<int?>("WeeklyHours")
+                        .HasColumnType("integer")
+                        .HasColumnName("weekly_hours");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("curriculum_entry", "academic");
                 });
 
             modelBuilder.Entity("Institution.Domain.Entities.DayLessonDisciplineTopic", b =>
@@ -372,6 +739,53 @@ namespace Institution.Infrastructure.Migrations
                     b.ToTable("discipline_update_history", "institution");
                 });
 
+            modelBuilder.Entity("Institution.Domain.Entities.EnrollmentEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("enrolled_at");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expires_at");
+
+                    b.Property<int?>("GradeOrYear")
+                        .HasColumnType("integer")
+                        .HasColumnName("grade_or_year");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<string>("PurchaseReference")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("purchase_reference");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("student_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.ToTable("enrollment", "enrollment");
+                });
+
             modelBuilder.Entity("Institution.Domain.Entities.EvaluationSystemEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -490,6 +904,46 @@ namespace Institution.Infrastructure.Migrations
                     b.HasIndex("InstitutionId");
 
                     b.ToTable("event", "institution");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.HolidayEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date")
+                        .HasColumnName("date");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("institution_id");
+
+                    b.Property<bool>("IsRecurring")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_recurring");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("holiday", "academic");
                 });
 
             modelBuilder.Entity("Institution.Domain.Entities.InstitutionEntity", b =>
@@ -615,6 +1069,322 @@ namespace Institution.Infrastructure.Migrations
                     b.ToTable("institution_update_history", "institution");
                 });
 
+            modelBuilder.Entity("Institution.Domain.Entities.ProgramEditionEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("AcademicProgramId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("academic_program_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("published_at");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date")
+                        .HasColumnName("start_date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AcademicProgramId");
+
+                    b.ToTable("program_edition", "academic");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ProgramPeriodEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer")
+                        .HasColumnName("number");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<int?>("SchoolDays")
+                        .HasColumnType("integer")
+                        .HasColumnName("school_days");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date")
+                        .HasColumnName("start_date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.ToTable("program_period", "academic");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ProgressRecordEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<decimal?>("CompletionPercent")
+                        .HasColumnType("numeric")
+                        .HasColumnName("completion_percent");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("EnrollmentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("enrollment_id");
+
+                    b.Property<decimal?>("FinalGrade")
+                        .HasColumnType("numeric")
+                        .HasColumnName("final_grade");
+
+                    b.Property<Guid>("ProgramPeriodId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_period_id");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnrollmentId");
+
+                    b.HasIndex("ProgramPeriodId");
+
+                    b.ToTable("progress_record", "enrollment");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.RecessEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date")
+                        .HasColumnName("start_date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.ToTable("recess", "academic");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.RoomEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("integer")
+                        .HasColumnName("capacity");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("HasLab")
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_lab");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("institution_id");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("room", "scheduling");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ScheduleGenerationLogEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("GeneratedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("generated_at");
+
+                    b.Property<Guid>("ProgramEditionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("program_edition_id");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<int>("TotalAssigned")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_assigned");
+
+                    b.Property<int>("TotalUnresolved")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_unresolved");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramEditionId");
+
+                    b.ToTable("schedule_generation_log", "scheduling");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ScheduleSlotEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time without time zone")
+                        .HasColumnName("end_time");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer")
+                        .HasColumnName("order");
+
+                    b.Property<Guid>("ShiftId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("shift_id");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time without time zone")
+                        .HasColumnName("start_time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("schedule_slot", "scheduling");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ShiftEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time without time zone")
+                        .HasColumnName("end_time");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("institution_id");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time without time zone")
+                        .HasColumnName("start_time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("shift", "scheduling");
+                });
+
             modelBuilder.Entity("Institution.Domain.Entities.StudentClassroomNoteEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -733,6 +1503,257 @@ namespace Institution.Infrastructure.Migrations
                     b.ToTable("student_day_lesson", "classroom");
                 });
 
+            modelBuilder.Entity("Institution.Domain.Entities.SubjectEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("AcademicProgramId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("academic_program_id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AcademicProgramId");
+
+                    b.ToTable("subject", "academic");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherAvailabilityEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer")
+                        .HasColumnName("day_of_week");
+
+                    b.Property<Guid>("ShiftId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("shift_id");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("teacher_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShiftId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("teacher_availability", "scheduling");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("email");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("institution_id");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("teacher", "scheduling");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherSubjectEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("subject_id");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("teacher_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("teacher_subject", "scheduling");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.AcademicProgramEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.InstitutionEntity", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.CalendarDayEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.ProgramPeriodEntity", "ProgramPeriod")
+                        .WithMany()
+                        .HasForeignKey("ProgramPeriodId");
+
+                    b.Navigation("ProgramEdition");
+
+                    b.Navigation("ProgramPeriod");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassGroupEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.RoomEntity", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId");
+
+                    b.HasOne("Institution.Domain.Entities.ShiftEntity", "Shift")
+                        .WithMany()
+                        .HasForeignKey("ShiftId");
+
+                    b.Navigation("ProgramEdition");
+
+                    b.Navigation("Room");
+
+                    b.Navigation("Shift");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassGroupStudentEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ClassGroupEntity", "ClassGroup")
+                        .WithMany("Students")
+                        .HasForeignKey("ClassGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.EnrollmentEntity", "Enrollment")
+                        .WithMany()
+                        .HasForeignKey("EnrollmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClassGroup");
+
+                    b.Navigation("Enrollment");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassScheduleEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ClassGroupEntity", "ClassGroup")
+                        .WithMany()
+                        .HasForeignKey("ClassGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.ProgramPeriodEntity", "ProgramPeriod")
+                        .WithMany()
+                        .HasForeignKey("ProgramPeriodId");
+
+                    b.HasOne("Institution.Domain.Entities.ScheduleSlotEntity", "ScheduleSlot")
+                        .WithMany()
+                        .HasForeignKey("ScheduleSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.SubjectEntity", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.TeacherEntity", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClassGroup");
+
+                    b.Navigation("ProgramPeriod");
+
+                    b.Navigation("ScheduleSlot");
+
+                    b.Navigation("Subject");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("Institution.Domain.Entities.ClassroomEntity", b =>
                 {
                     b.HasOne("Institution.Domain.Entities.DisciplineEntity", "Discipline")
@@ -742,6 +1763,47 @@ namespace Institution.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Discipline");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ConflictItemEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ConflictReportEntity", "ConflictReport")
+                        .WithMany("Items")
+                        .HasForeignKey("ConflictReportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ConflictReport");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ConflictReportEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramEdition");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.CurriculumEntryEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.SubjectEntity", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramEdition");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Institution.Domain.Entities.DayLessonDisciplineTopic", b =>
@@ -833,6 +1895,17 @@ namespace Institution.Infrastructure.Migrations
                     b.Navigation("Discipline");
                 });
 
+            modelBuilder.Entity("Institution.Domain.Entities.EnrollmentEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramEdition");
+                });
+
             modelBuilder.Entity("Institution.Domain.Entities.EvaluationSystemEntity", b =>
                 {
                     b.HasOne("Institution.Domain.Entities.DisciplineEntity", "Discipline")
@@ -874,7 +1947,114 @@ namespace Institution.Infrastructure.Migrations
                     b.Navigation("Institution");
                 });
 
+            modelBuilder.Entity("Institution.Domain.Entities.HolidayEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.InstitutionEntity", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
             modelBuilder.Entity("Institution.Domain.Entities.InstitutionUpdateHistoryEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.InstitutionEntity", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ProgramEditionEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.AcademicProgramEntity", "AcademicProgram")
+                        .WithMany()
+                        .HasForeignKey("AcademicProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AcademicProgram");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ProgramPeriodEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramEdition");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ProgressRecordEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.EnrollmentEntity", "Enrollment")
+                        .WithMany()
+                        .HasForeignKey("EnrollmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.ProgramPeriodEntity", "ProgramPeriod")
+                        .WithMany()
+                        .HasForeignKey("ProgramPeriodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Enrollment");
+
+                    b.Navigation("ProgramPeriod");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.RecessEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramEdition");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.RoomEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.InstitutionEntity", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ScheduleGenerationLogEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ProgramEditionEntity", "ProgramEdition")
+                        .WithMany()
+                        .HasForeignKey("ProgramEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramEdition");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ScheduleSlotEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ShiftEntity", "Shift")
+                        .WithMany("Slots")
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shift");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ShiftEntity", b =>
                 {
                     b.HasOne("Institution.Domain.Entities.InstitutionEntity", "Institution")
                         .WithMany()
@@ -910,7 +2090,7 @@ namespace Institution.Infrastructure.Migrations
             modelBuilder.Entity("Institution.Domain.Entities.StudentDayLesson", b =>
                 {
                     b.HasOne("Institution.Domain.Entities.DayLessonEntity", "DayLesson")
-                        .WithMany()
+                        .WithMany("StudentDayLessons")
                         .HasForeignKey("DayLessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -918,14 +2098,98 @@ namespace Institution.Infrastructure.Migrations
                     b.Navigation("DayLesson");
                 });
 
+            modelBuilder.Entity("Institution.Domain.Entities.SubjectEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.AcademicProgramEntity", "AcademicProgram")
+                        .WithMany()
+                        .HasForeignKey("AcademicProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AcademicProgram");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherAvailabilityEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.ShiftEntity", "Shift")
+                        .WithMany()
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.TeacherEntity", "Teacher")
+                        .WithMany("Availabilities")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shift");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.InstitutionEntity", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherSubjectEntity", b =>
+                {
+                    b.HasOne("Institution.Domain.Entities.SubjectEntity", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Institution.Domain.Entities.TeacherEntity", "Teacher")
+                        .WithMany("Subjects")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subject");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ClassGroupEntity", b =>
+                {
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ConflictReportEntity", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("Institution.Domain.Entities.DayLessonEntity", b =>
                 {
                     b.Navigation("DayLessonDisciplineTopics");
+
+                    b.Navigation("StudentDayLessons");
                 });
 
             modelBuilder.Entity("Institution.Domain.Entities.DisciplineEntity", b =>
                 {
                     b.Navigation("Topics");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.ShiftEntity", b =>
+                {
+                    b.Navigation("Slots");
+                });
+
+            modelBuilder.Entity("Institution.Domain.Entities.TeacherEntity", b =>
+                {
+                    b.Navigation("Availabilities");
+
+                    b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
         }
