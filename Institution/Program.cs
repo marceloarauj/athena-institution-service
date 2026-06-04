@@ -16,7 +16,16 @@ builder.Services
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, _) =>
+    {
+        document.Info.Title = "Institution API";
+        document.Info.Version = "v1";
+        document.Info.Description = "API para gerenciamento de instituições educacionais na plataforma Athena Students Union.";
+        return Task.CompletedTask;
+    });
+});
 
 var app = builder.Build();
 
