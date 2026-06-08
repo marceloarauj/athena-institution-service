@@ -4,14 +4,14 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services
     .AddService(builder.Configuration)
+    .AddJwtAuthentication(builder.Configuration)
     .AddMediatorConfig();
 
 builder.Services
     .AddControllers()
-    .AddJsonOptions( options =>
+    .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
@@ -41,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddlewares();

@@ -18,6 +18,13 @@ namespace Institution.Controllers
             return response.AsResult();
         }
 
+        [HttpGet("{alias}/exists")]
+        public async Task<IActionResult> CheckInstitutionExists(string alias)
+        {
+            var response = await mediator.Send(new CheckInstitutionExistsCommand(alias));
+            return response.AsResult();
+        }
+
         [HttpPut("{alias}")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UpdateInstitution(string alias, [FromForm] UpdateInstitutionDto dto)

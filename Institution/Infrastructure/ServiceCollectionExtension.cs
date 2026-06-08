@@ -1,4 +1,5 @@
-﻿using Institution.Application.Auth;
+using AthenaUnionLibrary.Authorization;
+using Institution.Application.Auth;
 using Institution.Application.Handlers;
 using Institution.Application.Interfaces;
 using Institution.Application.Interfaces.Repositories;
@@ -9,7 +10,11 @@ using Institution.Infrastructure.Database;
 using Institution.Infrastructure.Repositories;
 using Institution.Infrastructure.Services;
 using Mediator.Mediator;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Text.Json;
 
 namespace Institution.Infrastructure
 {
@@ -34,7 +39,7 @@ namespace Institution.Infrastructure
                 services.AddScoped<IUser, UserAuthentication>();
                 services.AddScoped<IInstitutionService, InstitutionService>();
                 services.AddScoped<IAmazonService, AmazonService>();
-                
+
                 services.AddSingleton<IGradeService, GradeService>();
 
                 services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -65,6 +70,42 @@ namespace Institution.Infrastructure
                 services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
                 services.AddScoped<IClassScheduleRepository, ClassScheduleRepository>();
                 services.AddScoped<IConflictReportRepository, ConflictReportRepository>();
+
+                return services;
+            }
+
+            public IServiceCollection AddJwtAuthentication(IConfiguration configuration)
+            {
+                var key = Encoding.ASCII.GetBytes(configuration["Identity:Key"]!);
+
+                services.AddAthenaAuthorization();
+
+                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(key),
+                            ValidateIssuer = true,
+                            ValidIssuer = configuration["Identity:Issuer"],
+                            ValidateAudience = true,
+                            ValidAudience = configuration["Identity:Audience"],
+                            ValidateLifetime = true,
+                            ClockSkew = TimeSpan.Zero
+                        };
+
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnForbidden = async ctx =>
+                            {
+                                ctx.Response.StatusCode = 403;
+                                ctx.Response.ContentType = "application/json";
+                                var body = new { success = false, message = "You don't have permission to perform this action.", data = (object?)null, errors = (object?)null };
+                                await ctx.Response.WriteAsJsonAsync(body);
+                            }
+                        };
+                    });
 
                 return services;
             }

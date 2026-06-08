@@ -16,5 +16,11 @@ namespace Institution.Infrastructure.Repositories
         {
             return await dbContext.Disciplines.FirstOrDefaultAsync(discipline => discipline.Id == id);
         }
+
+        public Task DeleteAsync(DisciplineEntity discipline)
+        {
+            dbContext.Disciplines.Remove(discipline);
+            return Task.CompletedTask;
+        }
     }
 }

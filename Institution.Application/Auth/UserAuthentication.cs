@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace Institution.Application.Auth
 {
-    public class UserAuthentication(IHttpContextAccessor _httpContextAccessor) : IUser
+    public class UserAuthentication(IHttpContextAccessor httpContextAccessor) : IUser
     {
-        //public ClaimsPrincipal User => _httpContextAccessor.HttpContext.User;
+        private ClaimsPrincipal User => httpContextAccessor.HttpContext!.User;
 
-        //public Guid UserId => Guid.Parse(User.FindFirst("user_id")!.Value);
-        public Guid UserId => Guid.NewGuid();
+        public Guid UserId => Guid.Parse(User.FindFirst("user_id")!.Value);
+
+        public IEnumerable<string> Permissions =>
+            User.Claims.Where(c => c.Type == "permission").Select(c => c.Value);
+
+        public bool HasPermission(string permissionCode) =>
+            User.Claims.Any(c => c.Type == "permission" && c.Value == permissionCode);
     }
 }

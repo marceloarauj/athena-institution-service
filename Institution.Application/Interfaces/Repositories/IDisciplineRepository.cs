@@ -6,5 +6,6 @@ namespace Institution.Application.Interfaces.Repositories
     {
         Task AddAsync(DisciplineEntity discipline);
         Task<DisciplineEntity?> FindByIdAsync(Guid id);
+        Task DeleteAsync(DisciplineEntity discipline);
     }
 }
