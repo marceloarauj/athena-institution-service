@@ -35,5 +35,6 @@ namespace Institution.Application.Interfaces
         IClassGroupRepository ClassGroupRepository { get; }
         IClassScheduleRepository ClassScheduleRepository { get; }
         IConflictReportRepository ConflictReportRepository { get; }
+        IReportCardLayoutRepository ReportCardLayoutRepository { get; }
     }
 }

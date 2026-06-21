@@ -32,7 +32,8 @@ namespace Institution.Infrastructure.Database
         IProgressRecordRepository progressRecordRepository,
         IClassGroupRepository classGroupRepository,
         IClassScheduleRepository classScheduleRepository,
-        IConflictReportRepository conflictReportRepository
+        IConflictReportRepository conflictReportRepository,
+        IReportCardLayoutRepository reportCardLayoutRepository
     ) : IUnitOfWork
     {
         private readonly AppDbContext _context = context;
@@ -94,5 +95,6 @@ namespace Institution.Infrastructure.Database
         public IClassGroupRepository ClassGroupRepository { get; } = classGroupRepository;
         public IClassScheduleRepository ClassScheduleRepository { get; } = classScheduleRepository;
         public IConflictReportRepository ConflictReportRepository { get; } = conflictReportRepository;
+        public IReportCardLayoutRepository ReportCardLayoutRepository { get; } = reportCardLayoutRepository;
     }
 }

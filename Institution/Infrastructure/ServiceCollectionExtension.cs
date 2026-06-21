@@ -70,6 +70,8 @@ namespace Institution.Infrastructure
                 services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
                 services.AddScoped<IClassScheduleRepository, ClassScheduleRepository>();
                 services.AddScoped<IConflictReportRepository, ConflictReportRepository>();
+                services.AddScoped<IReportCardLayoutRepository, ReportCardLayoutRepository>();
+                services.AddScoped<IReportCardService, ReportCardService>();
 
                 return services;
             }

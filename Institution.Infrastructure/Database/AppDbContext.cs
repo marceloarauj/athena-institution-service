@@ -11,6 +11,7 @@ namespace Institution.Infrastructure.Database
         public DbSet<DisciplineTopicEntity> DisciplineTopics { get; set; }
         public DbSet<EvaluationVariableEntity> EvaluationVariables { get; set; }
         public DbSet<EvaluationSystemEntity> EvaluationSystems { get; set; }
+        public DbSet<ReportCardLayoutEntity> ReportCardLayouts { get; set; }
         public DbSet<EventEntity> Events { get; set; }
         public DbSet<ClassroomEntity> Classrooms { get; set; }
         public DbSet<DayLessonEntity> DayLessons { get; set; }
